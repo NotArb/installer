@@ -1,5 +1,5 @@
-import bashScript from './install.sh';
-import batchScript from './install.bat';
+import bashScript from './install.sh?raw';
+import batchScript from './install.bat?raw';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
