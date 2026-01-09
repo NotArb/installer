@@ -1,7 +1,18 @@
+import bashScript from './install.sh';
+import batchScript from './install.bat';
+
+// noinspection JSUnusedGlobalSymbols
 export default {
     async fetch(request, env, ctx) {
-        // You can view your logs in the Observability dashboard
-        console.info({ message: 'From GitHub' });
-        return new Response('Hello World From GitHub!');
+        const url = URL(request.url);
+        const path = url.pathname.toLowerCase();
+
+        if (path === "windows") {
+            return new Response('' + batchScript);
+        } else if (path === "unix") {
+            return new Response('' + bashScript);
+        } else {
+            return new Response('Invalid Install Type: ' + path.substring(1));
+        }
     }
 };
