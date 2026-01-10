@@ -20,7 +20,7 @@ echo.
 echo Downloading Java...
 echo %JAVA_URL%
 
-set "TEMP_JAVA_ARCHIVE=%TEMP%\java_archive_%RANDOM%"
+set "TEMP_JAVA_ARCHIVE=java_archive_%RANDOM%.zip"
 
 curl -Lo "%TEMP_JAVA_ARCHIVE%" "%JAVA_URL%"
 if %ERRORLEVEL% neq 0 (
@@ -29,14 +29,20 @@ if %ERRORLEVEL% neq 0 (
     exit /b 1
 )
 
+for /f "tokens=1 delims=/" %%i in ('tar -tf "%TEMP_JAVA_ARCHIVE%" ^| findstr /r "^jdk"') do (
+    set "JAVA_FOLDER=%%i"
+    goto :found
+)
+:found
+
+rmdir /s /q "%JAVA_FOLDER%" 2>nul
+
 tar -xf "%TEMP_JAVA_ARCHIVE%"
 if %ERRORLEVEL% neq 0 (
     echo.
     echo Failed to extract Java archive!
     exit /b 1
 )
-
-for /d %%i in (jdk*) do set "JAVA_FOLDER=%%i"
 
 move /y "%TEMP_JAVA_ARCHIVE%" "%JAVA_FOLDER%.tmp" >nul
 
