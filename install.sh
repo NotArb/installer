@@ -52,7 +52,7 @@ install() {
 
   rm -rf "$java_folder"
 
-  tar -xzf "$temp_java_archive" || { echo "Failed to extract Java archive!"; rm -f "$temp_java_archive"; exit 1; }
+  tar -xzf "$temp_java_archive" || { echo ""; echo "Failed to extract Java archive!"; rm -f "$temp_java_archive"; exit 1; }
 
   mv -f "$temp_java_archive" "$java_folder.tmp"
 
