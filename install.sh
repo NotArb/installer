@@ -14,12 +14,4 @@ JAVA_MAC_X64_PATH="Contents/Home/bin/java"
 
 JAR_URL="" # defined by install.js
 
-# 1. Download/Check Java
-# 2. Parse latest.txt for latest jar url <-- issue with this is if a latest release is deleted...
-# BEST approach is to parse https://api.github.com/repos/NotArb/Jupiter/releases/latest but requires json reader...
-# todo lookup common installer methods that require json parsing...
-
-# 3. Download Jar from raw.github/.../latest.txt <-- or just make a notarb.com/latest url that parses
-
-# 2. Download Latest Jar url
-# 3. Run Jar with finish-install flag
+echo "TODO UNIX"
