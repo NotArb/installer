@@ -1,7 +1,0 @@
-# Top-level configuration
-name = "installer"
-main = "install.js"
-compatibility_date = "2022-07-12"
-
-workers_dev = false
-route = { pattern = "install.notarb.com/*", zone_name = "notarb.com" }
