@@ -10,6 +10,8 @@ set "JAR_URL=" REM defined externally
 
 :: Install
 
+set "CALLER_DIR=%cd%"
+
 set "APP_DIR=%LOCALAPPDATA%\notarb"
 mkdir "%APP_DIR%" 2>nul
 cd /d "%APP_DIR%"
@@ -62,4 +64,4 @@ if %ERRORLEVEL% neq 0 (
 echo.
 
 :: TODO change org. to com. after upgrade
-"%JAVA_FOLDER%\%JAVA_PATH%" -Dnotarb.home="%cd%" -cp notarb.jar org.notarb.Main finish-install "%JAVA_FOLDER%" "%JAVA_PATH%"
+"%JAVA_FOLDER%\%JAVA_PATH%" -cp notarb.jar org.notarb.Main finish-install "%CALLER_DIR%" "%cd%" %JAVA_FOLDER%" "%JAVA_PATH%"

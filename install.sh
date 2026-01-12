@@ -34,6 +34,8 @@ install() {
   local java_url="$1"
   local java_path="$2"
 
+  caller_dir=$(pwd)
+
   app_dir="${XDG_DATA_HOME:-$HOME/.local/share}/notarb"
   mkdir -p "$app_dir"
   cd "$app_dir"
@@ -67,7 +69,7 @@ install() {
   echo ""
 
   # todo change org. to com. after upgrade
-  exec "$java_folder/$java_path" -Dnotarb.home="$(pwd)" -cp notarb.jar org.notarb.Main finish-install "$java_folder" "$java_path"
+  exec "$java_folder/$java_path" -cp notarb.jar org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$java_folder" "$java_path"
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
