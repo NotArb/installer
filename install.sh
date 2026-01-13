@@ -3,16 +3,12 @@
 # Keep as const values for updater script to parse
 
 JAVA_LINUX_AARCH64_URL="https://download.oracle.com/java/25/latest/jdk-25_linux-aarch64_bin.tar.gz"
-JAVA_LINUX_AARCH64_PATH="bin/java"
 
 JAVA_LINUX_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.tar.gz"
-JAVA_LINUX_X64_PATH="bin/java"
 
 JAVA_MAC_AARCH64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-aarch64_bin.tar.gz"
-JAVA_MAC_AARCH64_PATH="Contents/Home/bin/java"
 
 JAVA_MAC_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-x64_bin.tar.gz"
-JAVA_MAC_X64_PATH="Contents/Home/bin/java"
 
 # Defined externally
 RELEASE_ID=""
@@ -34,7 +30,6 @@ download_file() {
 
 install() {
   local java_url="$1"
-  local java_path="$2"
 
   caller_dir=$(pwd)
 
@@ -78,8 +73,14 @@ install() {
 
   echo ""
 
+  if [[ -d "java/$jdk_folder_name/Contents/Home" ]]; then
+    java_home="java/$jdk_folder_name/Contents/Home"
+  else
+    java_home="java/$jdk_folder_name"
+  fi
+
   # todo change org. to com. after upgrade
-  "java/$jdk_folder_name/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$jdk_folder_name" "$java_path" "$jar_file"
+  "$java_home/bin/java" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$jdk_folder_name" "$jar_file"
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -102,15 +103,15 @@ fi
 
 case "$os-$arch" in
   linux-aarch64)
-    install "$JAVA_LINUX_AARCH64_URL" "$JAVA_LINUX_AARCH64_PATH"
+    install "$JAVA_LINUX_AARCH64_URL"
   ;;
   linux-x64)
-    install "$JAVA_LINUX_X64_URL" "$JAVA_LINUX_X64_PATH"
+    install "$JAVA_LINUX_X64_URL"
   ;;
   mac-aarch64)
-    install "$JAVA_MAC_AARCH64_URL" "$JAVA_MAC_AARCH64_PATH"
+    install "$JAVA_MAC_AARCH64_URL"
   ;;
   mac-x64)
-    install "$JAVA_MAC_X64_URL" "$JAVA_MAC_X64_PATH"
+    install "$JAVA_MAC_X64_URL"
   ;;
 esac

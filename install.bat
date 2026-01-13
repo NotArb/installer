@@ -4,7 +4,6 @@ setlocal
 REM Keep as const values for updater script to parse
 
 set "JAVA_URL=https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.zip"
-set "JAVA_PATH=bin\java.exe"
 
 REM Defined externally
 set "RELEASE_ID="
@@ -74,4 +73,4 @@ if %ERRORLEVEL% neq 0 (
 echo.
 
 :: TODO change org. to com. after upgrade
-"java\%jdk_folder_name%\%JAVA_PATH%" -cp "%jar_file%" org.notarb.Main finish-install "%caller_dir%" "%cd%" "%jdk_folder_name%" "%JAVA_PATH%" "%jar_file%"
+"java\%jdk_folder_name%\bin\java.exe" -cp "%jar_file%" org.notarb.Main finish-install "%caller_dir%" "%cd%" "%jdk_folder_name%" "%jar_file%"
