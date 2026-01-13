@@ -14,7 +14,7 @@ JAVA_MAC_AARCH64_PATH="Contents/Home/bin/java"
 JAVA_MAC_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-x64_bin.tar.gz"
 JAVA_MAC_X64_PATH="Contents/Home/bin/java"
 
-# defined externally
+# Defined externally
 JAR_ID=""
 JAR_URL=""
 
