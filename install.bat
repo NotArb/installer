@@ -7,7 +7,7 @@ set "JAVA_URL=https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.
 set "JAVA_PATH=bin\java.exe"
 
 REM Defined externally
-set "JAR_ID="
+set "RELEASE_ID="
 set "JAR_URL="
 
 :: Install
@@ -62,9 +62,9 @@ echo %JAR_URL%
 
 del /f /q .notarb-*.jar 2>nul
 
-set "JAR_FILE=.notarb-%JAR_ID%.jar"
+set "jar_file=.notarb-%RELEASE_ID%.jar"
 
-curl -Lo "%JAR_FILE%" "%JAR_URL%"
+curl -Lo "%jar_file%" "%JAR_URL%"
 if %ERRORLEVEL% neq 0 (
     echo.
     echo Failed to download NotArb!
@@ -74,4 +74,4 @@ if %ERRORLEVEL% neq 0 (
 echo.
 
 :: TODO change org. to com. after upgrade
-"java\%jdk_folder_name%\%JAVA_PATH%" -cp "%JAR_FILE%" org.notarb.Main finish-install "%caller_dir%" "%cd%" "%jdk_folder_name%" "%JAVA_PATH%" "%JAR_FILE%"
+"java\%jdk_folder_name%\%JAVA_PATH%" -cp "%jar_file%" org.notarb.Main finish-install "%caller_dir%" "%cd%" "%jdk_folder_name%" "%JAVA_PATH%" "%jar_file%"

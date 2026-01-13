@@ -15,7 +15,7 @@ JAVA_MAC_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-x64_bi
 JAVA_MAC_X64_PATH="Contents/Home/bin/java"
 
 # Defined externally
-JAR_ID=""
+RELEASE_ID=""
 JAR_URL=""
 
 download_file() {
@@ -72,7 +72,7 @@ install() {
 
   rm -f .notarb-*.jar
 
-  jar_file=".notarb-$JAR_ID.jar"
+  jar_file=".notarb-$RELEASE_ID.jar"
 
   download_file "$JAR_URL" "$jar_file" || { echo ""; echo "Failed to download NotArb!"; exit 1; }
 
