@@ -48,15 +48,17 @@ install() {
   echo "Downloading Java..."
   echo "$java_url"
 
-  temp_java_archive=$(mktemp java_archive_XXXXXXXXX)
+  rm -rf java # forcibly remove all installed java's
+
+  mkdir java
+
+  temp_java_archive=$(mktemp java/java_archive_XXXXXXXXX)
 
   download_file "$java_url" "$temp_java_archive" || { echo ""; echo "Failed to download Java!"; exit 1; }
 
   java_folder=$(tar -tf "$temp_java_archive" | grep -om1 'jdk[^/]*')
 
-  rm -rf "$java_folder"
-
-  tar -xzf "$temp_java_archive" || { echo ""; echo "Failed to extract Java archive!"; rm -f "$temp_java_archive"; exit 1; }
+  tar -xzf "$temp_java_archive" -C java || { echo ""; echo "Failed to extract Java archive!"; rm -f "$temp_java_archive"; exit 1; }
 
   mv -f "$temp_java_archive" "$java_folder.tmp"
 
