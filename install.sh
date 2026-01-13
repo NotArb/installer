@@ -54,17 +54,17 @@ install() {
 
   cd java
 
-  temp_java_archive=$(mktemp java_archive_XXXXXXXXX)
+  temp_jdk_archive=$(mktemp java_archive_XXXXXXXXX)
 
-  download_file "$java_url" "$temp_java_archive" || { echo ""; echo "Failed to download Java!"; exit 1; }
+  download_file "$java_url" "$temp_jdk_archive" || { echo ""; echo "Failed to download Java!"; exit 1; }
 
-  java_folder_name=$(tar -tf "$temp_java_archive" | grep -om1 'jdk[^/]*')
+  jdk_folder_name=$(tar -tf "$temp_jdk_archive" | grep -om1 'jdk[^/]*')
 
-  tar -xzf "$temp_java_archive" || { echo ""; echo "Failed to extract Java archive!"; rm -f "$temp_java_archive"; exit 1; }
+  tar -xzf "$temp_jdk_archive" || { echo ""; echo "Failed to extract Java archive!"; rm -f "$temp_jdk_archive"; exit 1; }
 
-  mv -f "$temp_java_archive" "$java_folder_name.tmp"
+  mv -f "$temp_jdk_archive" "$jdk_folder_name.tmp"
 
-  cd ../
+  cd ..
 
   echo ""
   echo "Downloading NotArb..."
@@ -79,7 +79,7 @@ install() {
   echo ""
 
   # todo change org. to com. after upgrade
-  exec "java/$java_folder_name/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$java_folder_name" "$java_path" "$jar_file"
+  "java/$jdk_folder_name/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$jdk_folder_name" "$java_path" "$jar_file"
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')

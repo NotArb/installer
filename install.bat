@@ -12,11 +12,11 @@ set "JAR_URL="
 
 :: Install
 
-set "CALLER_DIR=%cd%"
+set "caller_dir=%cd%"
 
-set "APP_DIR=%LOCALAPPDATA%\notarb"
-mkdir "%APP_DIR%" 2>nul
-cd /d "%APP_DIR%"
+set "app_dir=%LOCALAPPDATA%\notarb"
+mkdir "%app_dir%" 2>nul
+cd /d "%app_dir%"
 
 echo %cd%
 
@@ -26,33 +26,33 @@ echo %JAVA_URL%
 
 rmdir /s /q "java" 2>nul
 
-mkdir "java"
+mkdir java
 
-cd "java"
+cd java
 
-set "TEMP_JAVA_ARCHIVE=java_archive_%RANDOM%.zip"
+set "temp_jdk_archive=java_archive_%RANDOM%.zip"
 
-curl -Lo "%TEMP_JAVA_ARCHIVE%" "%JAVA_URL%"
+curl -Lo "%temp_jdk_archive%" "%JAVA_URL%"
 if %ERRORLEVEL% neq 0 (
     echo.
     echo Failed to download Java!
     exit /b 1
 )
 
-for /f "tokens=1 delims=/" %%i in ('tar -tf "%TEMP_JAVA_ARCHIVE%" ^| findstr /r "^jdk"') do (
-    set "JAVA_FOLDER_NAME=%%i"
+for /f "tokens=1 delims=/" %%i in ('tar -tf "%temp_jdk_archive%" ^| findstr /r "^jdk"') do (
+    set "jdk_folder_name=%%i"
     goto :found
 )
 :found
 
-tar -xf "%TEMP_JAVA_ARCHIVE%"
+tar -xf "%temp_jdk_archive%"
 if %ERRORLEVEL% neq 0 (
     echo.
     echo Failed to extract Java archive!
     exit /b 1
 )
 
-move /y "%TEMP_JAVA_ARCHIVE%" "%JAVA_FOLDER_NAME%.tmp" >nul
+move /y "%temp_jdk_archive%" "%jdk_folder_name%.tmp" >nul
 
 cd ..
 
@@ -74,4 +74,4 @@ if %ERRORLEVEL% neq 0 (
 echo.
 
 :: TODO change org. to com. after upgrade
-"java\%JAVA_FOLDER_NAME%\%JAVA_PATH%" -cp "%JAR_FILE%" org.notarb.Main finish-install "%CALLER_DIR%" "%cd%" "%JAVA_FOLDER_NAME%" "%JAVA_PATH%" "%JAR_FILE%"
+"java\%jdk_folder_name%\%JAVA_PATH%" -cp "%JAR_FILE%" org.notarb.Main finish-install "%caller_dir%" "%cd%" "%jdk_folder_name%" "%JAVA_PATH%" "%JAR_FILE%"
