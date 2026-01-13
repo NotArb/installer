@@ -6,6 +6,7 @@ REM Keep as const values for updater script to parse
 set "JAVA_URL=https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.zip"
 set "JAVA_PATH=bin\java.exe"
 
+REM Defined externally
 set "JAR_ID="
 set "JAR_URL="
 
