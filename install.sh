@@ -79,7 +79,7 @@ install() {
   echo ""
 
   # todo change org. to com. after upgrade
-  exec "$java_folder/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$java_folder" "$java_path" "$jar_file"
+  exec "java/$java_folder/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "java/$java_folder" "$java_path" "$jar_file"
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
