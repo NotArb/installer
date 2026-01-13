@@ -66,6 +66,8 @@ install() {
 
   cd ../
 
+  java_folder="java/$java_folder"
+
   echo ""
   echo "Downloading NotArb..."
   echo "$JAR_URL"
@@ -79,7 +81,7 @@ install() {
   echo ""
 
   # todo change org. to com. after upgrade
-  exec "java/$java_folder/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "java/$java_folder" "$java_path" "$jar_file"
+  exec "$java_folder/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$java_folder" "$java_path" "$jar_file"
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
