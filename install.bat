@@ -6,7 +6,8 @@ REM Keep as const values for updater script to parse
 set "JAVA_URL=https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.zip"
 set "JAVA_PATH=bin\java.exe"
 
-set "JAR_URL=" REM defined externally
+set "JAR_ID="
+set "JAR_URL="
 
 :: Install
 
@@ -52,9 +53,11 @@ echo.
 echo Downloading NotArb...
 echo %JAR_URL%
 
-del /f "notarb.jar" 2>nul
+del /f /q .notarb-*.jar 2>nul
 
-curl -Lo "notarb.jar" "%JAR_URL%"
+set "JAR_FILE=.notarb-%JAR_ID%.jar"
+
+curl -Lo "%JAR_FILE%" "%JAR_URL%"
 if %ERRORLEVEL% neq 0 (
     echo.
     echo Failed to download NotArb!
@@ -64,4 +67,4 @@ if %ERRORLEVEL% neq 0 (
 echo.
 
 :: TODO change org. to com. after upgrade
-"%JAVA_FOLDER%\%JAVA_PATH%" -cp notarb.jar org.notarb.Main finish-install "%CALLER_DIR%" "%cd%" "%JAVA_FOLDER%" "%JAVA_PATH%"
+"%JAVA_FOLDER%\%JAVA_PATH%" -cp "%JAR_FILE%" org.notarb.Main finish-install "%CALLER_DIR%" "%cd%" "%JAVA_FOLDER%" "%JAVA_PATH%" "%JAR_FILE%"

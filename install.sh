@@ -14,7 +14,9 @@ JAVA_MAC_AARCH64_PATH="Contents/Home/bin/java"
 JAVA_MAC_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-x64_bin.tar.gz"
 JAVA_MAC_X64_PATH="Contents/Home/bin/java"
 
-JAR_URL="" # defined externally
+# defined externally
+JAR_ID=""
+JAR_URL=""
 
 download_file() {
   local url="$1"
@@ -62,14 +64,16 @@ install() {
   echo "Downloading NotArb..."
   echo "$JAR_URL"
 
-  rm -f "notarb.jar"
+  rm -f .notarb-*.jar
 
-  download_file "$JAR_URL" "notarb.jar" || { echo ""; echo "Failed to download NotArb!"; exit 1; }
+  jar_file=".notarb-$JAR_ID.jar"
+
+  download_file "$JAR_URL" "$jar_file" || { echo ""; echo "Failed to download NotArb!"; exit 1; }
 
   echo ""
 
   # todo change org. to com. after upgrade
-  exec "$java_folder/$java_path" -cp notarb.jar org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$java_folder" "$java_path"
+  exec "$java_folder/$java_path" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$java_folder" "$java_path" "$jar_file"
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
