@@ -24,6 +24,12 @@ echo.
 echo Downloading Java...
 echo %JAVA_URL%
 
+rmdir /s /q "java" 2>nul
+
+mkdir "java"
+
+cd "java"
+
 set "TEMP_JAVA_ARCHIVE=java_archive_%RANDOM%.zip"
 
 curl -Lo "%TEMP_JAVA_ARCHIVE%" "%JAVA_URL%"
@@ -34,12 +40,10 @@ if %ERRORLEVEL% neq 0 (
 )
 
 for /f "tokens=1 delims=/" %%i in ('tar -tf "%TEMP_JAVA_ARCHIVE%" ^| findstr /r "^jdk"') do (
-    set "JAVA_FOLDER=%%i"
+    set "JAVA_FOLDER_NAME=%%i"
     goto :found
 )
 :found
-
-rmdir /s /q "%JAVA_FOLDER%" 2>nul
 
 tar -xf "%TEMP_JAVA_ARCHIVE%"
 if %ERRORLEVEL% neq 0 (
@@ -48,7 +52,9 @@ if %ERRORLEVEL% neq 0 (
     exit /b 1
 )
 
-move /y "%TEMP_JAVA_ARCHIVE%" "%JAVA_FOLDER%.tmp" >nul
+move /y "%TEMP_JAVA_ARCHIVE%" "%JAVA_FOLDER_NAME%.tmp" >nul
+
+cd ..
 
 echo.
 echo Downloading NotArb...
@@ -68,4 +74,4 @@ if %ERRORLEVEL% neq 0 (
 echo.
 
 :: TODO change org. to com. after upgrade
-"%JAVA_FOLDER%\%JAVA_PATH%" -cp "%JAR_FILE%" org.notarb.Main finish-install "%CALLER_DIR%" "%cd%" "%JAVA_FOLDER%" "%JAVA_PATH%" "%JAR_FILE%"
+"java\%JAVA_FOLDER_NAME%\%JAVA_PATH%" -cp "%JAR_FILE%" org.notarb.Main finish-install "%CALLER_DIR%" "%cd%" "%JAVA_FOLDER_NAME%" "%JAVA_PATH%" "%JAR_FILE%"
