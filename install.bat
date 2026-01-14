@@ -53,6 +53,8 @@ if %ERRORLEVEL% neq 0 (
 
 move /y "%temp_jdk_archive%" "%jdk_folder_name%.tmp" >nul
 
+set "java_home=%cd%\%jdk_folder_name%"
+
 cd ..
 
 echo.
@@ -75,4 +77,4 @@ echo.
 cd "%caller_dir%"
 
 :: TODO change org. to com. after upgrade
-"java\%jdk_folder_name%\bin\java.exe" -cp "%jar_file%" org.notarb.Main finish-install "%notarb_home%"
+"%java_home%\bin\java.exe" -cp "%notarb_home%\%jar_file%" org.notarb.Main finish-install

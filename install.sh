@@ -59,6 +59,12 @@ install() {
 
   mv -f "$temp_jdk_archive" "$jdk_folder_name.tmp"
 
+  if [[ -d "$jdk_folder_name/Contents/Home" ]]; then
+    java_home="$(pwd)/$jdk_folder_name/Contents/Home"
+  else
+    java_home="$(pwd)/$jdk_folder_name"
+  fi
+
   cd ..
 
   echo ""
@@ -73,16 +79,10 @@ install() {
 
   echo ""
 
-  if [[ -d "java/$jdk_folder_name/Contents/Home" ]]; then
-    java_home="java/$jdk_folder_name/Contents/Home"
-  else
-    java_home="java/$jdk_folder_name"
-  fi
-
   cd "$caller_dir"
 
   # todo change org. to com. after upgrade
-  "$java_home/bin/java" -cp "$jar_file" org.notarb.Main finish-install "$notarb_home"
+  "$java_home/bin/java" -cp "$notarb_home/$jar_file" org.notarb.Main finish-install
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')
