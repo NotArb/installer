@@ -33,9 +33,9 @@ install() {
 
   caller_dir=$(pwd)
 
-  app_dir="${XDG_DATA_HOME:-$HOME/.local/share}/notarb"
-  mkdir -p "$app_dir"
-  cd "$app_dir"
+  notarb_home="${XDG_DATA_HOME:-$HOME/.local/share}/notarb"
+  mkdir -p "$notarb_home"
+  cd "$notarb_home"
 
   pwd
 
@@ -79,8 +79,10 @@ install() {
     java_home="java/$jdk_folder_name"
   fi
 
+  cd "$caller_dir"
+
   # todo change org. to com. after upgrade
-  "$java_home/bin/java" -cp "$jar_file" org.notarb.Main finish-install "$caller_dir" "$(pwd)" "$jdk_folder_name" "$jar_file"
+  "$java_home/bin/java" -cp "$jar_file" org.notarb.Main finish-install "$notarb_home"
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')

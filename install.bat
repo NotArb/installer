@@ -13,9 +13,9 @@ set "JAR_URL="
 
 set "caller_dir=%cd%"
 
-set "app_dir=%LOCALAPPDATA%\notarb"
-mkdir "%app_dir%" 2>nul
-cd /d "%app_dir%"
+set "notarb_home=%LOCALAPPDATA%\notarb"
+mkdir "%notarb_home%" 2>nul
+cd /d "%notarb_home%"
 
 echo %cd%
 
@@ -72,5 +72,7 @@ if %ERRORLEVEL% neq 0 (
 
 echo.
 
+cd "%caller_dir%"
+
 :: TODO change org. to com. after upgrade
-"java\%jdk_folder_name%\bin\java.exe" -cp "%jar_file%" org.notarb.Main finish-install "%caller_dir%" "%cd%" "%jdk_folder_name%" "%jar_file%"
+"java\%jdk_folder_name%\bin\java.exe" -cp "%jar_file%" org.notarb.Main finish-install "%notarb_home%"
