@@ -81,8 +81,7 @@ install() {
 
   cd "$caller_dir"
 
-  # todo change org. to com. after upgrade
-  "$java_home/bin/java" -cp "$notarb_home/$jar_file" org.notarb.Main finish-install
+  "$java_home/bin/java" -cp "$notarb_home/$jar_file" com.notarb.Main finish-install
 }
 
 kernel=$(uname -s | tr '[:upper:]' '[:lower:]')

@@ -76,5 +76,4 @@ echo.
 
 cd "%caller_dir%"
 
-:: TODO change org. to com. after upgrade
-"%java_home%\bin\java.exe" -cp "%notarb_home%\%jar_file%" org.notarb.Main finish-install
+"%java_home%\bin\java.exe" -cp "%notarb_home%\%jar_file%" com.notarb.Main finish-install
