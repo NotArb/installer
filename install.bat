@@ -5,7 +5,11 @@ set "JAVA_URL=https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.
 
 REM Fetch latest release (assumes single .jar asset)
 set "ps_tmp=%TEMP%\notarb-latest.ps1"
-echo $r = Invoke-RestMethod 'https://api.github.com/repos/NotArb/Release/releases/latest'; $jar = ($r.assets | Where-Object { $_.name -like '*.jar' }); Write-Output "$($jar.name)|$($jar.browser_download_url)" > "%ps_tmp%"
+(
+echo $r = Invoke-RestMethod 'https://api.github.com/repos/NotArb/Release/releases/latest'
+echo $jar = $r.assets ^| Where-Object { $_.name -like '*.jar' }
+echo Write-Output "$($jar.name)^|$($jar.browser_download_url)"
+) > "%ps_tmp%"
 
 for /f "tokens=1,* delims=|" %%a in ('powershell -NoProfile -ExecutionPolicy Bypass -File "%ps_tmp%"') do (
     set "JAR_NAME=%%a"
