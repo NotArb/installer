@@ -4,7 +4,7 @@ setlocal
 set "JAVA_URL=https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.zip"
 
 REM Fetch latest release (assumes single .jar asset)
-for /f "tokens=1,* delims=|" %%a in ('powershell -NoProfile -Command "$r = Invoke-RestMethod 'https://api.github.com/repos/NotArb/Release/releases/latest'; $jar = ($r.assets | Where-Object { $_.name -like '*.jar' }); Write-Output \"$($jar.name)|$($jar.browser_download_url)\""') do (
+for /f "tokens=1,* delims=|" %%a in ('powershell -NoProfile -Command "$r = Invoke-RestMethod 'https://api.github.com/repos/NotArb/Release/releases/latest'; $jar = ($r.assets ^| Where-Object { $_.name -like '*.jar' }); Write-Output \"$($jar.name)^|$($jar.browser_download_url)\""') do (
     set "JAR_NAME=%%a"
     set "JAR_URL=%%b"
 )
