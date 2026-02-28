@@ -1,18 +1,19 @@
 #!/bin/bash
 
-# Keep as const values for updater script to parse
-
 JAVA_LINUX_AARCH64_URL="https://download.oracle.com/java/25/latest/jdk-25_linux-aarch64_bin.tar.gz"
-
 JAVA_LINUX_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.tar.gz"
-
 JAVA_MAC_AARCH64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-aarch64_bin.tar.gz"
-
 JAVA_MAC_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-x64_bin.tar.gz"
 
-# Defined externally
-RELEASE_ID=""
-JAR_URL=""
+# Fetch latest release (assumes single .jar asset)
+RELEASE_JSON=$(curl -fsS https://api.github.com/repos/NotArb/Release/releases/latest)
+JAR_URL=$(echo "$RELEASE_JSON" | grep -o '"browser_download_url": *"[^"]*\.jar"' | grep -o 'https://[^"]*')
+JAR_NAME="$(basename "$JAR_URL")"
+
+if [[ -z "$JAR_URL" ]]; then
+  echo "Failed to fetch latest release!"
+  exit 1
+fi
 
 download_file() {
   local url="$1"
@@ -73,7 +74,7 @@ install() {
 
   rm -f .notarb-*.jar
 
-  jar_file=".notarb-$RELEASE_ID.jar"
+  jar_file=".$JAR_NAME"
 
   download_file "$JAR_URL" "$jar_file" || { echo ""; echo "Failed to download NotArb!"; exit 1; }
 
