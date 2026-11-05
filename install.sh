@@ -6,7 +6,7 @@ JAVA_MAC_AARCH64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-aa
 JAVA_MAC_X64_URL="https://download.oracle.com/java/25/latest/jdk-25_macos-x64_bin.tar.gz"
 
 # Fetch latest release (assumes single .jar asset)
-RELEASE_JSON=$(curl -fsS https://api.github.com/repos/NotArb/Release/releases/latest)
+RELEASE_JSON=$(curl -fsS https://api.github.com/repos/NotArb/installer/releases/latest)
 JAR_URL=$(echo "$RELEASE_JSON" | grep -o '"browser_download_url": *"[^"]*\.jar"' | grep -o 'https://[^"]*')
 JAR_NAME="$(basename "$JAR_URL")"
 

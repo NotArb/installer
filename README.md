@@ -1,6 +1,6 @@
 # NotArb Installer
 
-[![Join Discord](https://dcbadge.limes.pink/api/server/eWG47Rzd6f)](https://discord.notarb.org)
+[![Join Discord](https://dcbadge.limes.pink/api/server/eWG47Rzd6f)](https://discord.notarb.com)
 
 This repo houses the install scripts used for notarb-cli.
 

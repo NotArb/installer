@@ -4,7 +4,7 @@ setlocal
 set "JAVA_URL=https://download.oracle.com/java/25/latest/jdk-25_windows-x64_bin.zip"
 
 REM Fetch latest release (assumes single .jar asset)
-for /f "tokens=*" %%a in ('curl -fsS https://api.github.com/repos/NotArb/Release/releases/latest ^| findstr /C:"browser_download_url" ^| findstr /C:".jar"') do set "LINE=%%a"
+for /f "tokens=*" %%a in ('curl -fsS https://api.github.com/repos/NotArb/installer/releases/latest ^| findstr /C:"browser_download_url" ^| findstr /C:".jar"') do set "LINE=%%a"
 
 set "LINE=%LINE:"=%"
 set "LINE=%LINE:browser_download_url: =%"
